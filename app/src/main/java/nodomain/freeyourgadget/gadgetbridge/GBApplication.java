@@ -248,6 +248,7 @@ public class GBApplication extends Application {
         return deviceService;
     }
 
+
     /**
      * Returns the DBHandler instance for reading/writing or throws GBException
      * when that was not successful

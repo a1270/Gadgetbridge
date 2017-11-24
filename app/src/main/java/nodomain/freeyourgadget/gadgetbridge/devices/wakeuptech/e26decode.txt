@@ -1,0 +1,365 @@
+Device Info
+ab:00:0d:ff:92:c0:[03:03]:bf:[f6:c0:a7:d9:64:26]:07
+171 00 13 255 146 192 03 03 191 246 192 167 217 100 38 07
+
+[0] = header
+[1] = version
+[2] = mac address
+
+Battery Info
+[ab:00:05:ff]:[91]:80:[00]:[50]
+[0] = header
+[1] = command
+[2] = charging 0/1
+[3] = charge percentage
+
+Locate bracelet
+ab:00:03:ff:71:80
+
+clock 12/24h
+[ab:00:04:ff]:[7c]:80:[01] 12h mode
+
+ab:00:04:ff:7c:80:00 24h mode
+
+Locate Phone
+
+[ab:00:04:ff]:[7d]:80:[01]
+[0] = header
+[1] = command
+[2] = on/off 00/01
+
+ab:00:04:ff:7d:80:00
+
+Photo / trigger
+[ab:00:04:ff]:[79]:80:[00]
+[0] = header
+[1] = command
+[2] = enable/disable
+ab:00:04:ff:79:80:01
+
+reply from bracelet
+ab:00:04:ff:79:80:01
+Sends 01 when button? is pressed to indicate to take picture.
+
+
+Check stats hourly
+
+ab:00:04:ff:78:80:01
+
+ab:00:04:ff:78:80:00
+
+
+Alarm clock
+
+ab:00:08:ff:73:80:01:00:13:02:80
+ab:00:08:ff:73:80:01:00:13:02:7f
+ab:00:08:ff:73:80:01:00:13:02:1f
+ab:00:08:ff:73:80:01:01:13:02:1f
+171 00 08 255 115 128 01 00 00 02 128
+ab:00:08:ff:73:80:01:00:14:17:80
+[ab:00:08:ff]:[73]:80:[01]:[01]:[13:02]:[1f]
+
+[0] = header
+[1] = command
+[2] = alarm number
+[3] = enable/disable
+[4] = hour minute in 24h
+[5] = mode 80 = one time upcoming, 7f = everyday, 1f = monday to friday, 40 = sunday custom work on me
+40 sunday +
+01 monday
+02 tuesday
+04 wednesday
+08 thursday
+10 friday
+20 saturday
+add values up
+
+ab:00:08:ff:73:80:02:01:16:00:7f
+ab:00:08:ff:73:80:02:00:16:00:7f
+
+171 00 08 255 115 128 02 00 22 00 127
+
+unknown commands
+ab:00:04:ff:7b:80:01
+
+
+Lost Reminder
+
+ab:00:04:ff:7a:80:00
+ab:00:04:ff:7a:80:01
+
+Quiet Hours
+
+ab:00:08:ff:76:80:01:02:00:05:00
+[ab:00:08:ff]:[76]:80:[00]:[02:00]:[05:00]
+[0] = header
+[1] = command
+[2] = enable/disable
+[3] = start time
+[4] = end time
+
+
+Sedent(s)
+
+[ab:00:08:ff]:[75]:80:[01]:[09:00]:[12:00]
+ab:00:08:ff:75:80:00:09:00:12:00
+[0] = header
+[1] = command
+[2] = enable/disable
+[3] start time
+[4] = end time
+
+Raise hand to find message?
+ab:00:04:ff:77:80:01
+ab:00:04:ff:77:80:00
+
+Clear bracelet data
+[ab:00:04:ff]:[23]:80:00
+
+Reset bracelet
+ab:00:03:ff:ff:80 power off?
+
+unknown
+
+[ab::00:04:ff]:[7b]:80:[00]
+[ab::00:04:ff]:[7b]:80:[01]
+
+unknown 2
+[ab:00:06:ff]:[7e]:80:00:[16:00]
+[0] = header
+[1] = command
+[2] = time of some sort 22:00
+
+Set Personal Info
+[ab:00:11:ff]:[74]:80:[46]:[1e]:[b4]:[9a]:[01]:[08]:[5a:82]:[3c:5a]:[3c:64]:[5d:64]
+Values are store in metric / us customary
+[0] = header
+[1] = command
+[2] = step length
+[3] = age
+[4] = height
+[5] = weight if value is over 255 add 256 to value after parsing
+[6] = 01 = metric 00 = us customary
+[7] = step target count x 1000
+[8] = Systolic pressure dflt
+[9] = Diastolic Pressure dflt
+[10] = Heart Rate dflt
+[11] = Blood Oxygen dflt
+
+Set sleep tracking times on/off?
+[ab:00:08:ff]:[7f]:80:[01?]:[15:00]:[0c:00]
+
+[0] = header
+[1] = command
+[2] = enable/disable ?
+[3] = fall asleep time
+[4] = wake up time
+171 00 08 255 127 128 01 21 00 12 00
+
+Blood pressure reference values
+[ab:00:06:ff]:[95]:80:[00]:[78]:[41]
+[0] = header
+[1] = command
+[2] = on/off?
+[3] = Systolic pressure
+[4] = Diastolic pressure
+171 00 06 255 149 128 00 120 65
+
+Heart Rate timed
+ab:00:04:ff:31:09:01 enable sensor
+[0] = header
+[1] = command
+[2] = mode 09 == timed 0a == realtime
+[3] = on/off 00/01
+wait amount of time
+ab:00:04:ff:31:09:00 returns value and disable
+
+ab:00:05:ff:31:09:7a:04 reply
+
+Return HR, BO, and BP
+[ab:00:04:ff]:[32]:80:[01]
+[0] = header
+[1] = command
+[2] = enable
+
+wait 60 sec
+ab:00:04:ff:32:80:00
+reply
+[ab:00:07:ff]:[32]:80:[7a]:[63]:[9a:61]
+171 00 07 255 50 128 122 99 154 97
+[0] = header
+[1] = command
+[2] = heartrate
+[3] = bloodoxygen
+[4] = bloodpressure
+
+Heart Rate Realtime
+[ab:00:04:ff]:[31]:[0a]:[01]
+[0] = header
+[1] = command
+[2] = mode 09 == timed 0a == realtime
+[3] = on/off 00/01
+Reply
+ab:00:05:ff:31:0a:[00]:be
+ab:00:05:ff:31:0a:[79]:be
+ab:00:05:ff:31:0a:[78]:be
+ab:00:05:ff:31:0a:[7a]:be
+
+ab:00:04:ff:31:0a:00
+
+
+Blood oxygen timed
+[ab:00:04:ff]:[31]:[11]:[01]
+[0] = header
+[1] = command
+[2] = mode 11 timed 12 realtime
+[3] = enable/disable
+wait 40 seconds
+ab:00:04:ff:31:11:00
+
+reply
+[ab:00:05:ff]:[31]:[11]:[63]:04
+
+Blood oxygen realtime
+ab:00:04:ff:31:12:01
+[0] = header
+[1] = command
+[2] = mode 11 timed 12 realtime
+[3] = enable/disable
+
+reply
+ab:00:05:ff:31:12:00:be
+ab:00:05:ff:31:12:00:be
+[ab:00:05:ff]:[31]:[12]:[63]:be
+
+Blood pressure timed
+[ab:00:04:ff]:[31]:[21]:[01]
+[0] = header
+[1] = command
+[2] = mode 21 timed 22 realtime
+[3] = enable/disable
+wait 60 seconds
+ab:00:04:ff:31:21:00
+reply
+[ab:00:05:ff]:[31]:[21]:[9d]:[62]
+
+Blood pressure realtime
+[ab:00:04:ff]:[31]:[22]:[01]
+[0] = header
+[1] = command
+[2] = mode 21 timed 22 realtime
+[3] = enable/disable
+reply
+[ab:00:05:ff]:[31]:[22]:[9d]:[62]
+[ab:00:05:ff]:[31]:[22]:[9a]:[61]
+
+discon
+ab:00:04:ff:31:22:00
+
+SYNC
+[ab:00:0b:ff]:[93]:80:00:07:e1:[0b:14]:[14:1e:25]
+[0] = header
+[1] = command
+[2] = day - month
+[3] = h:m:s 24h
+
+Sync with no new data
+ab:00:0b:ff:93:80:00:07:e1:0b:15:0f:3b:28 date sync
+
+Request vital data
+[ab:00:09:ff]:[51]:80:00:[11:0b:0e]:0e:17
+[ab:00:09:ff]:[51]:80:00:[11:0b:15]:[0f:2e]
+171 00 09 255 81 128 00 17 11 21 15 46
+[0] = header
+[1] = command
+[2] = YY MM DD date from
+[3] = hour/minute from even hours every + 2 hours 12 14 16 18/00 02 04 06 08 0a
+
+Request Sleep data
+[ab:00:09:ff]:[52]:80:00:[11:0b:14]:[09:01]
+171 00 09 255 82 128 00 17 11 20 09 01
+[0] = header
+[1] = command
+[2] = YY MM DD date from
+[3] = hour/minute from before
+replys
+
+Recieve Sleep Events
+ab:00:0b:ff:52:80:11:0b:16:15:29:01:00:a8
+ab:00:0b:ff:52:80:11:0b:16:01:0b:01:00:53
+ab:00:0b:ff:52:80:[11:0b:17]:[0b:1f]:[01]:00:[1d]
+ab:00:09:ff:52:80:00:11:0b:15:[02:23]
+[ab:00:0b:ff]:[52]:80:[11:0b:15]:[15:2e]:[01]:00:[22] light
+[ab:00:0b:ff]:[52]:80:[11:0b:16]:[02:0f]:[02]:[00]:[09] deep
+ab:00:0b:ff:52:80:11:0b:16:[01:0b]:[01]:00:[53]
+ab:00:0b:ff:52:80:[11:0b:17]:[0b:1f]:[01]:[00]:[1d]
+171 00 11 255 82 128 17 11 20 22 28 01 02 120
+[0] = header
+[1] = command
+[2] = YY MM DD
+[3] = Start of event
+[4] = type 01 light 02 deep
+[5] =
+[6] = length of sleep Sometimes valves are correct and sometimes values are two added together
+
+
+Recieve vitals
+ab:00:16:ff:51:20:11:0b:16:17:00:00:33:00:00:00:00:00:00:00
+[ab:00:16:ff]:[51]:[20]:[11:0b:17]:[0b:00]:[00:67]:00:[00:01]:[7a]:[63]:[9a::61]:00:0a:1f:02:29:07
+[0] = header
+[1] = command
+[2] = mode 20 all data 08 current data 12 == ??
+[3] = YY MM DD
+[4] = hour data is from in 24h +1
+[5] = step data first and second byte seem to switch around in values under 255
+[6] = calories burned
+[7] = heart rate
+[8] = blood oxygen
+[9] = blood pressure +
+In folowup packet
+[10] = wakeup count ?
+[11] = Light sleep HH MM
+[12] = deep sleep HH MM
+[13] =
+
+Recieve something related to sleep and step counter
+
+ab:00:0e:ff:51:08:00:00:00:00:00:00:[02:10]:[00:1b]:[00]
+ab:00:0e:ff:51:08:00:00:00:00:00:00:01:36:[00:1b]:00
+[ab:00:0e:ff]:[51]:08:00:[00:4d]:00:00:[01]:[00:22]:[00:00]:[01]
+[0]= header
+[1] = command
+[2] = steps
+[3] = calories
+[4]
+[5]
+
+Recent bloodpressure?
+[ab:00:0a:ff]:[51]:[14]:[11:0b:17]:[12:3a]:[9d:62]
+171 00 10 255 82 20 17 11 23 18 58 157 98
+[0] = header
+[1] = command
+[2] =
+[3] = yy mm dd
+[4] = hh mm 24h
+[5] = bloodpressure
+
+Recent Heartrate
+[ab:00:0a:ff]:[51]:[11]:[11:0b:17]:[14:00]:[7a]:[7a]
+[0] = header
+[1] = command
+[2] =
+[3] = yy mm dd
+[4] = time of mesurement
+[5] = heartrate
+[6] = heartrate
+
+Blood Oxygen
+[ab:00:0a:ff]:[51]:[12]:[11:0b:17]:[13:21]:[62]:[62]
+[0] = header
+[1] = command
+[2] = mode
+[3] = yy mm dd
+[4] = time of mesurement
+[5] = bloodoxygen
+[6] = bloodoxygen

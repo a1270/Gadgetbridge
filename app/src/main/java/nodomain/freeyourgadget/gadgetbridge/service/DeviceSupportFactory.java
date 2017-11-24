@@ -39,6 +39,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.pebble.PebbleSupport
 import nodomain.freeyourgadget.gadgetbridge.service.devices.vibratissimo.VibratissimoSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.hplus.HPlusSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.jyou.TeclastH30Support;
+import nodomain.freeyourgadget.gadgetbridge.service.devices.wakeuptech.E26Support;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public class DeviceSupportFactory {
@@ -105,6 +106,8 @@ public class DeviceSupportFactory {
 
             try {
                 switch (gbDevice.getType()) {
+                    case UNKNOWN:
+                        break;
                     case PEBBLE:
                         deviceSupport = new ServiceDeviceSupport(new PebbleSupport(), EnumSet.of(ServiceDeviceSupport.Flags.BUSY_CHECKING));
                         break;
@@ -140,6 +143,11 @@ public class DeviceSupportFactory {
                         break;
                     case TECLASTH30:
                         deviceSupport = new ServiceDeviceSupport(new TeclastH30Support(), EnumSet.of(ServiceDeviceSupport.Flags.BUSY_CHECKING));
+                        break;
+                    case WAKEUPE26:
+                        deviceSupport = new ServiceDeviceSupport(new E26Support(), EnumSet.of(ServiceDeviceSupport.Flags.BUSY_CHECKING));
+                        break;
+                    case TEST:
                         break;
                 }
                 if (deviceSupport != null) {
