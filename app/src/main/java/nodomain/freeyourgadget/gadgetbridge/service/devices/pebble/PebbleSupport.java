@@ -35,6 +35,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
@@ -245,5 +246,10 @@ public class PebbleSupport extends AbstractSerialDeviceSupport {
         if (reconnect()) {
             super.onSendWeather(weatherSpec);
         }
+    }
+
+    @Override
+    public void onSendDebug(DebugSpec debugSpec) {
+
     }
 }

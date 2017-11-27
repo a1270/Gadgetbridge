@@ -45,6 +45,8 @@ import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugType;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
@@ -61,7 +63,9 @@ public class DebugActivity extends AbstractGBActivity {
             = "nodomain.freeyourgadget.gadgetbridge.DebugActivity.action.reply";
 
     private Spinner sendTypeSpinner;
+    private Spinner debugTypeSpinner;
     private Button sendButton;
+    private Button sendDebugButton;
     private Button incomingCallButton;
     private Button outgoingCallButton;
     private Button startCallButton;
@@ -74,6 +78,7 @@ public class DebugActivity extends AbstractGBActivity {
     private Button testNewFunctionalityButton;
 
     private EditText editContent;
+    private EditText editDebugContent;
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -129,6 +134,42 @@ public class DebugActivity extends AbstractGBActivity {
                 notificationSpec.pebbleColor = notificationSpec.type.color;
                 notificationSpec.id = -1;
                 GBApplication.deviceService().onNotification(notificationSpec);
+            }
+        });
+
+        editDebugContent = (EditText) findViewById(R.id.editDebugContent);
+
+        ArrayList<String> spinnerDebugArray = new ArrayList<>();
+        for (DebugType debugType : DebugType.values()) {
+            spinnerDebugArray.add(debugType.name());
+        }
+        ArrayAdapter<String> spinnerDebugArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerDebugArray);
+        debugTypeSpinner = (Spinner) findViewById(R.id.debugTypeSpinner);
+        debugTypeSpinner.setAdapter(spinnerDebugArrayAdapter);
+
+        sendDebugButton = (Button) findViewById(R.id.sendDebugButton);
+        sendDebugButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DebugSpec debugSpec = new DebugSpec();
+                String debugString = editDebugContent.getText().toString();
+                debugSpec.type = DebugType.values()[debugTypeSpinner.getSelectedItemPosition()];
+                //make sure hexstring is valid(/2)
+                switch (debugSpec.type) {
+                    case HEXSTRING:
+                        if ((debugString.length() % 2) == 0) {
+                            debugSpec.HexString = debugString.toLowerCase();
+                            GBApplication.deviceService().onSendDebug(debugSpec);
+                        } else {
+                            GB.toast(DebugActivity.this, "Invalid hex string", Toast.LENGTH_LONG, GB.WARN);
+                        }
+                        break;
+                    case TEXT:
+                        debugSpec.Text = debugString;
+                        GBApplication.deviceService().onSendDebug(debugSpec);
+                    default:
+                        break;
+                }
             }
         });
 

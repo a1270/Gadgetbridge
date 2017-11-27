@@ -54,6 +54,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CannedMessagesSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.model.GenericItem;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
@@ -673,6 +674,11 @@ public class HPlusSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendWeather(WeatherSpec weatherSpec) {
+
+    }
+
+    @Override
+    public void onSendDebug(DebugSpec debugSpec) {
 
     }
 

@@ -26,6 +26,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CannedMessagesSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
@@ -99,4 +100,6 @@ public interface EventHandler {
     void onTestNewFunction();
 
     void onSendWeather(WeatherSpec weatherSpec);
+
+    void onSendDebug(DebugSpec debugSpec);
 }

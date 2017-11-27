@@ -24,6 +24,7 @@ import java.util.UUID;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
@@ -123,5 +124,10 @@ public class LiveviewSupport extends AbstractSerialDeviceSupport {
     @Override
     public void onTestNewFunction() {
         //nothing to do ATM
+    }
+
+    @Override
+    public void onSendDebug(DebugSpec debugSpec) {
+
     }
 }
