@@ -59,6 +59,40 @@
                 grid:layout_gravity="fill_horizontal"
                 android:text="Send" />
 
+            <TextView
+                android:id="@+id/textDebugView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                grid:layout_columnSpan="2"
+                grid:layout_gravity="fill_horizontal"
+                android:text="Send Data to CtrlChar"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/editDebugContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                grid:layout_columnSpan="2"
+                grid:layout_gravity="fill_horizontal"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:text="Test" />
+
+            <Spinner
+                android:id="@+id/debugTypeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                grid:layout_gravity="fill_horizontal"
+                grid:layout_columnSpan="2"
+                android:text="send data" />
+
+            <Button
+                android:id="@+id/sendDebugButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                grid:layout_columnSpan="2"
+                grid:layout_gravity="fill_horizontal"
+                android:text="Send" />
             <Button
                 android:id="@+id/incomingCallButton"
                 android:layout_width="wrap_content"

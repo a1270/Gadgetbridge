@@ -61,11 +61,13 @@ import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CannedMessagesSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugType;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -93,6 +95,7 @@ import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_RE
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_REQUEST_DEVICEINFO;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_REQUEST_SCREENSHOT;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_SEND_CONFIGURATION;
+import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_SEND_DEBUG;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_SEND_WEATHER;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_SETCANNEDMESSAGES;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_SETMUSICINFO;
@@ -159,6 +162,9 @@ import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_WEA
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_WEATHER_TOMORROWCONDITIONCODE;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_WEATHER_TOMORROWMAXTEMP;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_WEATHER_TOMORROWMINTEMP;
+import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_DEBUG_TYPE;
+import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_DEBUG_TEXT;
+import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_DEBUG_HEXSTRING;
 
 public class DeviceCommunicationService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceCommunicationService.class);
@@ -553,6 +559,13 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 weatherSpec.tomorrowConditionCode = intent.getIntExtra(EXTRA_WEATHER_TOMORROWCONDITIONCODE, 0);
                 mDeviceSupport.onSendWeather(weatherSpec);
                 break;
+            }
+            case ACTION_SEND_DEBUG: {
+                DebugSpec debugSpec = new DebugSpec();
+                debugSpec.type = (DebugType) intent.getSerializableExtra(EXTRA_DEBUG_TYPE);
+                debugSpec.Text = intent.getStringExtra(EXTRA_DEBUG_TEXT);
+                debugSpec.HexString = intent.getStringExtra(EXTRA_DEBUG_HEXSTRING);
+                mDeviceSupport.onSendDebug(debugSpec);
             }
         }
 

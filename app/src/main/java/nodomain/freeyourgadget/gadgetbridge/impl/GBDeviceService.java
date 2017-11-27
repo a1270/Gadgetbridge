@@ -34,6 +34,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CannedMessagesSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.DebugSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
@@ -383,6 +384,15 @@ public class GBDeviceService implements DeviceService {
                 .putExtra(EXTRA_WEATHER_TOMORROWMAXTEMP, weatherSpec.tomorrowMaxTemp)
                 .putExtra(EXTRA_WEATHER_TOMORROWMINTEMP, weatherSpec.tomorrowMinTemp)
                 .putExtra(EXTRA_WEATHER_TOMORROWCONDITIONCODE, weatherSpec.tomorrowConditionCode);
+        invokeService(intent);
+    }
+
+    @Override
+    public void onSendDebug(DebugSpec debugSpec) {
+        Intent intent = createIntent().setAction(ACTION_SEND_DEBUG)
+                .putExtra(EXTRA_DEBUG_TYPE, debugSpec.type)
+                .putExtra(EXTRA_DEBUG_TEXT, debugSpec.Text)
+                .putExtra(EXTRA_DEBUG_HEXSTRING, debugSpec.HexString);
         invokeService(intent);
     }
 

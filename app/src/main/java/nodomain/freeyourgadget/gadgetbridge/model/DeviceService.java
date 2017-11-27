@@ -65,6 +65,7 @@ public interface DeviceService extends EventHandler {
     String ACTION_SEND_CONFIGURATION = PREFIX + ".action.send_configuration";
     String ACTION_SEND_WEATHER = PREFIX + ".action.send_weather";
     String ACTION_TEST_NEW_FUNCTION = PREFIX + ".action.test_new_function";
+    String ACTION_SEND_DEBUG = PREFIX + ".action.send_debug";
     String EXTRA_NOTIFICATION_BODY = "notification_body";
     String EXTRA_NOTIFICATION_FLAGS = "notification_flags";
     String EXTRA_NOTIFICATION_ID = "notification_id";
@@ -114,6 +115,10 @@ public interface DeviceService extends EventHandler {
     String EXTRA_WEATHER_TOMORROWMAXTEMP = "weather_tomorrowmaxtemp";
     String EXTRA_WEATHER_TOMORROWMINTEMP = "weather_tomorrowmintemp";
     String EXTRA_WEATHER_TOMORROWCONDITIONCODE = "weather_tomorrowconditioncode";
+
+    String EXTRA_DEBUG_TYPE = "debug_type";
+    String EXTRA_DEBUG_TEXT = "debug_text";
+    String EXTRA_DEBUG_HEXSTRING = "debug_hexstring";
 
     /**
      * Use EXTRA_REALTIME_SAMPLE instead
